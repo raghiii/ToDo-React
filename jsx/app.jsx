@@ -44,7 +44,7 @@ var ToDoInput = React.createClass({
     
     onTextChange: function(e){
         this.setState({
-            val: e.target.value
+            val: e.target.value,
         })
     },
     
@@ -52,45 +52,13 @@ var ToDoInput = React.createClass({
         return (
             <div className="row">
               <div className="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
-                  <input name="todo" className="todo" value="" onChange={this.onTextChange}></input>
+                  <input name="todo" className="todo" value={this.state.val} onChange={this.onTextChange}></input>
               </div>
             </div>
         )
     },
 });
 
-
-var ToDOItem = React.createClass({
-    
-    propTypes: {
-        title: React.PropTypes.string.isRequired,
-    },
-    
-    render: function() {
-        return (
-            <li class="todo-item">
-                <div class="todo-title"> this.props.title </div>
-                <div class="todo-button pull-right"> <i class="fa fa-facebook"> </i> </div>
-                <div class="todo-button pull-right"> <i class="fa fa-facebook"> </i> </div>
-            </li>
-        )
-    },
-});
-
-
-var ToDoList = React.createClass({
-    render: function() {
-      return (
-            <div className="row">
-              <div className="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
-                  <ul className="todo-list">
-                    
-                  </ul>
-              </div>
-            </div>
-      )  
-    },
-});
 
 
 var Application = React.createClass({
@@ -100,7 +68,7 @@ var Application = React.createClass({
             <Time />
             <Inputheading />
             <ToDoInput />
-            <ToDoList />
+            <ToDoListWrap />
         </div>  
         )
     }
