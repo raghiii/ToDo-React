@@ -80,32 +80,18 @@ var ToDoItem = React.createClass({
         status: React.PropTypes.func.isRequired,
     },
     
-    getInitialState: function() {
-        return {
-          completed: this.props.completed, 
-        };
-    },
-    
     done: function(){
-        this.setState({
-            completed: true,
-        });
-        
         this.props.status(true);
     },
     
     undone: function(){
-        this.setState({
-            completed: false,
-        });
-        
         this.props.status(false);
     },
     render: function() {
         return (
             <li className="todo-item">
                 { 
-                 this.state.completed ? 
+                 this.props.completed ? 
                  (
                      <div>
                         <div className="todo-title done"> {this.props.title} </div>
@@ -130,30 +116,26 @@ var ToDoItem = React.createClass({
 var ToDoList = React.createClass({
     
     propTypes: {
-        initArr: React.PropTypes.arrayOf(React.PropTypes.shape({
+        todos: React.PropTypes.arrayOf(React.PropTypes.shape({
             title: React.PropTypes.string.isRequired,
             date: React.PropTypes.object.isRequired,
             id: React.PropTypes.number.isRequired,
             completed: React.PropTypes.bool.isRequired,
-        })).isRequired, 
+        })).isRequired,
+        
+        changeStatus: React.PropTypes.func.isRequired,
+        
     },
-    
-    getInitialState: function() {
-        return {
-          todos: this.props.initArr,
-        };
-    },
-    
+ 
     changeStatus: function(index,bool){
-        this.state.todos[index].completed = bool;
-        this.setState(this.state);
+        this.props.changeStatus(index,bool);
     },
     
     render: function() {
         return (
             <ul className="todo-list">
                 {
-                    this.state.todos.map(function(todo,index){
+                    this.props.todos.map(function(todo,index){
                         return (
                             <ToDoItem 
                                 title={todo.title}
@@ -170,21 +152,13 @@ var ToDoList = React.createClass({
 });
 
 var ToDoListWrap = React.createClass({
-    
     propTypes: {
-        todoArr: React.PropTypes.array,
+        todoArr: React.PropTypes.array.isRequired,
+        changeStatus: React.PropTypes.func.isRequired,
     },
     
-    getDefaultProps: function() {
-        return {
-          todoArr: TODO,
-        }
-    },
-    
-    getInitialState: function(){
-        return {
-            listLen: this.props.todoArr.length,  
-        };
+    changeStatus: function(index,bool){
+        this.props.changeStatus(index,bool);
     },
     
     render: function() {
@@ -192,9 +166,12 @@ var ToDoListWrap = React.createClass({
         <div className="row">
           <div className="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
              {
-                this.state.listLen > 0 ?
-                    <ToDoList initArr={this.props.todoArr}/>
-                  :
+                this.props.todoArr.length > 0 ?
+                    <ToDoList 
+                        todos={this.props.todoArr}
+                        changeStatus={ function(index,bool){ this.changeStatus(index,bool)}.bind(this) }
+                    />
+                :
                     <EmptyToDo />
              }
           </div>
@@ -205,13 +182,37 @@ var ToDoListWrap = React.createClass({
 
 
 var Application = React.createClass({
+    propTypes: {
+        todoArr: React.PropTypes.array,
+    },
+    
+    getDefaultProps: function() {
+        return {
+          todoArr: TODO,
+        }
+    },
+    
+    getInitialState: function() {
+        return {
+          todos: this.props.todoArr, 
+        };
+    },
+    
+    changeStatus: function(index,bool){
+        this.state.todos[index].completed = bool;
+        this.setState(this.state);
+    },
+    
     render: function(){
         return (
         <div className="container glass md-margin-top-10">
             <Time />
             <Inputheading />
             <ToDoInput />
-            <ToDoListWrap />
+            <ToDoListWrap 
+                todoArr={ this.state.todos }
+                changeStatus = { function(index,bool){ this.changeStatus(index,bool)}.bind(this) } 
+            />
         </div>  
         )
     }
