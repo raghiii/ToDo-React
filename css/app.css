@@ -65,6 +65,10 @@ body {
     text-decoration: line-through;
 }
 
+.hover-light:hover {
+    color: white;
+    cursor: pointer;
+}
 
 @media screen and (min-width: 768px) {
     .jumbotron-text {
