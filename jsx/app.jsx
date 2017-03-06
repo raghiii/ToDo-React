@@ -60,6 +60,149 @@ var ToDoInput = React.createClass({
 });
 
 
+var EmptyToDo = React.createClass({
+    render: function() {
+        return (
+            <ul className="todo-list">
+                <li className="todo-item">
+                    <div className="text-center"> No TODO's Yet !</div>
+                </li>
+            </ul>
+        );  
+    },
+});
+
+var ToDoItem = React.createClass({
+    
+    propTypes: {
+        title: React.PropTypes.string.isRequired,
+        completed: React.PropTypes.bool.isRequired,
+        status: React.PropTypes.func.isRequired,
+    },
+    
+    getInitialState: function() {
+        return {
+          completed: this.props.completed, 
+        };
+    },
+    
+    done: function(){
+        this.setState({
+            completed: true,
+        });
+        
+        this.props.status(true);
+    },
+    
+    undone: function(){
+        this.setState({
+            completed: false,
+        });
+        
+        this.props.status(false);
+    },
+    render: function() {
+        return (
+            <li className="todo-item">
+                { 
+                 this.state.completed ? 
+                 (
+                     <div>
+                        <div className="todo-title done"> {this.props.title} </div>
+                        <div className="todo-button pull-right hover-light"> <i className="fa fa-trash-o"> </i> </div>
+                        <div className="todo-button pull-right hover-light" onClick={this.undone}> <i className="fa fa-undo"> </i> </div>
+                     </div>
+                 )
+                 : 
+                 (
+                     <div>
+                        <div className="todo-title"> {this.props.title} </div>
+                        <div className="todo-button pull-right hover-light"> <i className="fa fa-trash-o"> </i> </div>
+                        <div className="todo-button pull-right hover-light" onClick={this.done}> <i className="fa fa-check"> </i> </div>
+                     </div>
+                 )
+                }
+            </li>
+        )
+    },
+});
+
+var ToDoList = React.createClass({
+    
+    propTypes: {
+        initArr: React.PropTypes.arrayOf(React.PropTypes.shape({
+            title: React.PropTypes.string.isRequired,
+            date: React.PropTypes.object.isRequired,
+            id: React.PropTypes.number.isRequired,
+            completed: React.PropTypes.bool.isRequired,
+        })).isRequired, 
+    },
+    
+    getInitialState: function() {
+        return {
+          todos: this.props.initArr,
+        };
+    },
+    
+    changeStatus: function(index,bool){
+        this.state.todos[index].completed = bool;
+        this.setState(this.state);
+    },
+    
+    render: function() {
+        return (
+            <ul className="todo-list">
+                {
+                    this.state.todos.map(function(todo,index){
+                        return (
+                            <ToDoItem 
+                                title={todo.title}
+                                key={todo.id}
+                                completed={todo.completed}
+                                status={ function(bool){ this.changeStatus(index,bool)}.bind(this) }
+                            />
+                        );
+                    }.bind(this))
+                }
+            </ul>
+        )
+    },
+});
+
+var ToDoListWrap = React.createClass({
+    
+    propTypes: {
+        todoArr: React.PropTypes.array,
+    },
+    
+    getDefaultProps: function() {
+        return {
+          todoArr: TODO,
+        }
+    },
+    
+    getInitialState: function(){
+        return {
+            listLen: this.props.todoArr.length,  
+        };
+    },
+    
+    render: function() {
+      return (
+        <div className="row">
+          <div className="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+             {
+                this.state.listLen > 0 ?
+                    <ToDoList initArr={this.props.todoArr}/>
+                  :
+                    <EmptyToDo />
+             }
+          </div>
+        </div>
+      )  
+    },
+});
+
 
 var Application = React.createClass({
     render: function(){
