@@ -78,6 +78,7 @@ var ToDoItem = React.createClass({
         title: React.PropTypes.string.isRequired,
         completed: React.PropTypes.bool.isRequired,
         status: React.PropTypes.func.isRequired,
+        remove: React.PropTypes.func.isRequired,
     },
     
     done: function(){
@@ -87,6 +88,11 @@ var ToDoItem = React.createClass({
     undone: function(){
         this.props.status(false);
     },
+    
+    remove: function(){
+        this.props.remove();    
+    },
+    
     render: function() {
         return (
             <li className="todo-item">
@@ -95,7 +101,7 @@ var ToDoItem = React.createClass({
                  (
                      <div>
                         <div className="todo-title done"> {this.props.title} </div>
-                        <div className="todo-button pull-right hover-light"> <i className="fa fa-trash-o"> </i> </div>
+                        <div className="todo-button pull-right hover-light" onClick={this.remove}> <i className="fa fa-trash-o"> </i> </div>
                         <div className="todo-button pull-right hover-light" onClick={this.undone}> <i className="fa fa-undo"> </i> </div>
                      </div>
                  )
@@ -103,7 +109,7 @@ var ToDoItem = React.createClass({
                  (
                      <div>
                         <div className="todo-title"> {this.props.title} </div>
-                        <div className="todo-button pull-right hover-light"> <i className="fa fa-trash-o"> </i> </div>
+                        <div className="todo-button pull-right hover-light" onClick={this.remove}> <i className="fa fa-trash-o"> </i> </div>
                         <div className="todo-button pull-right hover-light" onClick={this.done}> <i className="fa fa-check"> </i> </div>
                      </div>
                  )
@@ -124,11 +130,16 @@ var ToDoList = React.createClass({
         })).isRequired,
         
         changeStatus: React.PropTypes.func.isRequired,
+        remove: React.PropTypes.func.isRequired,
         
     },
  
     changeStatus: function(index,bool){
         this.props.changeStatus(index,bool);
+    },
+    
+    remove: function(index){
+      this.props.remove(index);  
     },
     
     render: function() {
@@ -142,6 +153,7 @@ var ToDoList = React.createClass({
                                 key={todo.id}
                                 completed={todo.completed}
                                 status={ function(bool){ this.changeStatus(index,bool)}.bind(this) }
+                                remove={ function(){ this.remove(index)}.bind(this) }
                             />
                         );
                     }.bind(this))
@@ -155,10 +167,15 @@ var ToDoListWrap = React.createClass({
     propTypes: {
         todoArr: React.PropTypes.array.isRequired,
         changeStatus: React.PropTypes.func.isRequired,
+        remove: React.PropTypes.func.isRequired,
     },
     
     changeStatus: function(index,bool){
         this.props.changeStatus(index,bool);
+    },
+    
+    remove: function(index){
+      this.props.remove(index);  
     },
     
     render: function() {
@@ -170,6 +187,7 @@ var ToDoListWrap = React.createClass({
                     <ToDoList 
                         todos={this.props.todoArr}
                         changeStatus={ function(index,bool){ this.changeStatus(index,bool)}.bind(this) }
+                        remove={ function(index){ this.remove(index) }.bind(this) }
                     />
                 :
                     <EmptyToDo />
@@ -203,6 +221,11 @@ var Application = React.createClass({
         this.setState(this.state);
     },
     
+    remove: function(index){
+      this.state.todos.splice(index,1);  
+      this.setState(this.state);
+    },
+    
     render: function(){
         return (
         <div className="container glass md-margin-top-10">
@@ -211,7 +234,9 @@ var Application = React.createClass({
             <ToDoInput />
             <ToDoListWrap 
                 todoArr={ this.state.todos }
-                changeStatus = { function(index,bool){ this.changeStatus(index,bool)}.bind(this) } 
+                changeStatus = { function(index,bool){ this.changeStatus(index,bool)}.bind(this) }
+                remove={ function(index ){ this.remove(index)}.bind(this) }
+                
             />
         </div>  
         )
