@@ -68,7 +68,7 @@ var ToDoInput = React.createClass({
     },
 
     onTextChange: function(e){
-        if(this.state.val.length < 21){
+        if((this.state.val.length < 21)||(this.state.val.length > e.target.value.length)){
             this.setState({
                 val: e.target.value,
             })
