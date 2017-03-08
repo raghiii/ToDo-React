@@ -1,16 +1,14 @@
-var index = 0;
-
 var TODO = [
     {
         title: " Complete TODO App ",
         date: new Date(),
-        id: index,
+        id: 0,
         completed: false,
     },
     {
         title: " Pata Nahi  ",
         date: new Date(),
-        id: index + 1,
+        id: 1,
         completed: true,
     },
 ];

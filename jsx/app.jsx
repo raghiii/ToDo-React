@@ -1,3 +1,4 @@
+var index = 2;
 var Time = React.createClass({
    render: function(){
        return (
@@ -36,6 +37,10 @@ var Inputheading = React.createClass({
 });
 
 var ToDoInput = React.createClass({
+    propTypes: {
+        addTodo: React.PropTypes.func.isRequired,
+    },
+    
     getInitialState: function(){
         return {
             val: "",
@@ -48,11 +53,22 @@ var ToDoInput = React.createClass({
         })
     },
     
+
+    
+    handleKeyPress:  function(press){
+        if(press.key == 'Enter'){
+            this.props.addTodo(this.state.val);
+            this.setState({
+                val: "",
+            })
+        }
+    },
+    
     render: function(){
         return (
             <div className="row">
               <div className="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
-                  <input name="todo" className="todo" value={this.state.val} onChange={this.onTextChange}></input>
+                  <input name="todo" className="todo" value={this.state.val} onChange={this.onTextChange} onKeyPress={this.handleKeyPress}></input>
               </div>
             </div>
         )
@@ -226,16 +242,34 @@ var Application = React.createClass({
       this.setState(this.state);
     },
     
+    addTodo: function(val){
+        if(this.state.todos.length < 5){
+            this.state.todos.push({
+                title: val,
+                date: new Date(),
+                id: index,
+                completed: false,
+            });
+            this.setState(this.state);
+            index++;
+        }
+    },
+    
     render: function(){
         return (
         <div className="container glass md-margin-top-10">
             <Time />
             <Inputheading />
-            <ToDoInput />
+            { this.state.todos.length < 5 ?
+                <ToDoInput addTodo={ function(val){ this.addTodo(val) }.bind(this) }/>
+                    :
+                ""
+            }
+            
             <ToDoListWrap 
                 todoArr={ this.state.todos }
                 changeStatus = { function(index,bool){ this.changeStatus(index,bool)}.bind(this) }
-                remove={ function(index ){ this.remove(index)}.bind(this) }
+                remove={ function(index ){ this.remove(index) }.bind(this) }
                 
             />
         </div>  
