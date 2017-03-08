@@ -6,7 +6,7 @@ var TODO = [
         completed: false,
     },
     {
-        title: "13 Resons Why - s01e10",
+        title: "13 Resons Why - e10",
         date: new Date(),
         id: 1,
         completed: false,
