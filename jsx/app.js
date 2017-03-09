@@ -1,3 +1,8 @@
+//Importing Libraries
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+// App Components
 var index = 2;
 var Time = React.createClass({
    getInitialState: function(){
@@ -5,21 +10,21 @@ var Time = React.createClass({
         time: new Date(),
       };
    },
-   
+
    componentDidMount() {
     this.timer = setInterval(this.tick, 100);
    },
-    
+
    componentWillUnmount: function() {
     clearInterval(this.timer);
    },
-    
+
    tick: function(){
         this.setState({
             time: new Date,
-        })   
+        })
    },
-    
+
    render: function(){
        return (
            <div className="row">
