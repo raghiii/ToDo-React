@@ -1,29 +1,31 @@
 //Importing Libraries
-import React from 'react';
+import React, {Components, PropTypes } from 'react';
 
 
-var Time = React.createClass({
-   getInitialState: function(){
-      return {
-        time: new Date(),
-      };
-   },
+export default class Time extends Components{
+   constructor() {
+     super()
+     this.state = {
+          time: new Date(),
+     };
+   }
+
 
    componentDidMount() {
     this.timer = setInterval(this.tick, 100);
-   },
+   }
 
-   componentWillUnmount: function() {
+   componentWillUnmount() {
     clearInterval(this.timer);
-   },
+   }
 
-   tick: function(){
+   tick(){
         this.setState({
             time: new Date,
         })
-   },
+   };
 
-   render: function(){
+   render(){
        return (
            <div className="row">
               <div className="col-xs-12 clock">
@@ -31,8 +33,6 @@ var Time = React.createClass({
               </div>
            </div>
        )
-   },
+   }
 
-});
-
-export default Time;
+}
