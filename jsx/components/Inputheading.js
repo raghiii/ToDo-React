@@ -1,28 +1,29 @@
 //Importing Libraries
-import React from 'react';
+import React, {Components, PropTypes} from 'react';
 
-var Inputheading = React.createClass({
+export default class Inputheading extends Components {
 
-    propTypes: {
-     heading: React.PropTypes.string,
-    },
+  constructor(props) {
+    super(props);
+  }
 
-    getDefaultProps: function() {
-       return {
-           heading: "WHAT ARE YOUR ToDO'S FOR TODAY",
-       }
-    },
-    render: function(){
-        return (
-            <div className="row">
-              <div className="col-xs-12">
-                  <div className="input-heading">
-                       { this.props.heading }
-                  </div>
-              </div>
-            </div>
-        )
-    },
-});
+  getDefaultProps() {
+    return {heading: "WHAT ARE YOUR ToDO'S FOR TODAY"}
+  }
 
-export default Inputheading;
+  render() {
+    return (
+      <div className="row">
+        <div className="col-xs-12">
+          <div className="input-heading">
+            {this.props.heading}
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
+
+Inputheading.propTypes = {
+  heading: PropTypes.string
+}
