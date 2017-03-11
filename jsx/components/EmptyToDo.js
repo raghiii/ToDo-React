@@ -1,18 +1,20 @@
 //Importing Libraries
-import React from 'react';
+import React, {Components, PropTypes} from 'react';
 
+export default class EmptyToDo extends Components {
 
-var EmptyToDo = React.createClass({
-    render: function() {
-        return (
-            <ul className="todo-list">
-                <li className="todo-item">
-                    <div className="text-center"> No TODO's Yet !</div>
-                </li>
-            </ul>
-        );
-    },
-});
+  constructor(props) {
+    super(props);
+  }
 
-
-export default EmptyToDo;
+  render() {
+    return (
+      <ul className="todo-list">
+        <li className="todo-item">
+          <div className="text-center">
+            No TODO's Yet !</div>
+        </li>
+      </ul>
+    );
+  }
+}
