@@ -26,4 +26,4 @@ export default class Inputheading extends Components {
 
 Inputheading.propTypes = {
   heading: PropTypes.string
-}
+};
