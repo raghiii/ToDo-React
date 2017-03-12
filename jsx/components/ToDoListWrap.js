@@ -8,11 +8,11 @@ export default class ToDoListWrap extends Components {
 
   changeStatus(index, bool) {
     this.props.changeStatus(index, bool);
-  },
+  }
 
   remove(index) {
     this.props.remove(index);
-  },
+  }
 
   render() {
     return (
@@ -34,7 +34,7 @@ export default class ToDoListWrap extends Components {
 }
 
 ToDoListWrap.propTypes = {
-  todoArr: React.PropTypes.array.isRequired,
-  changeStatus: React.PropTypes.func.isRequired,
-  remove: React.PropTypes.func.isRequired
+  todoArr: PropTypes.array.isRequired,
+  changeStatus: PropTypes.func.isRequired,
+  remove: PropTypes.func.isRequired
 };

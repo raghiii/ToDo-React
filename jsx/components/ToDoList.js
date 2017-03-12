@@ -35,12 +35,12 @@ export default class ToDoList extends Components {
 }
 
 ToDoList.propTypes = {
-  todos: React.PropTypes.arrayOf(React.PropTypes.shape({
-    title: React.PropTypes.string.isRequired,
-    date: React.PropTypes.object.isRequired,
-    id: React.PropTypes.number.isRequired,
-    completed: React.PropTypes.bool.isRequired
+  todos: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    date: PropTypes.object.isRequired,
+    id: PropTypes.number.isRequired,
+    completed: PropTypes.bool.isRequired
   })).isRequired,
-  changeStatus: React.PropTypes.func.isRequired,
-  remove: React.PropTypes.func.isRequired
+  changeStatus: PropTypes.func.isRequired,
+  remove: PropTypes.func.isRequired
 };

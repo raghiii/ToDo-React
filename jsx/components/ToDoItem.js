@@ -53,8 +53,8 @@ export default class ToDoItem extends Components {
 }
 
 ToDoItem.propTypes = {
-  title: React.PropTypes.string.isRequired,
-  completed: React.PropTypes.bool.isRequired,
-  status: React.PropTypes.func.isRequired,
-  remove: React.PropTypes.func.isRequired
+  title: PropTypes.string.isRequired,
+  completed: PropTypes.bool.isRequired,
+  status: PropTypes.func.isRequired,
+  remove: PropTypes.func.isRequired
 };
