@@ -1,12 +1,12 @@
 var TODO = [
     {
-        title: "Complete TODO App",
+        title: "Complete TODO App with Redux",
         date: new Date(),
         id: 0,
         completed: false,
     },
     {
-        title: "13 Resons Why - e10",
+        title: "DLND Project-2",
         date: new Date(),
         id: 1,
         completed: false,

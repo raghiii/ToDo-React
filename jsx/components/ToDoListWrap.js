@@ -5,13 +5,8 @@ import EmptyToDo from './EmptyToDo';
 import ToDoList from './ToDoList';
 
 export default class ToDoListWrap extends Components {
-
-  changeStatus(index, bool) {
-    this.props.changeStatus(index, bool);
-  }
-
-  remove(index) {
-    this.props.remove(index);
+  constructor(props) {
+    super(props);
   }
 
   render() {
@@ -19,12 +14,13 @@ export default class ToDoListWrap extends Components {
       <div className="row">
         <div className="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
           {
-          this.props.todoArr.length > 0
-            ? <ToDoList todos={this.props.todoArr} changeStatus={function(index, bool) {
-                this.changeStatus(index, bool)
-              }.bind(this)} remove={function(index) {
-                this.remove(index)
-              }.bind(this)}/>
+          this.props.todos.length > 0
+            ?
+            <ToDoList
+                todos={this.props.todos}
+                changeStatus={this.props.changeStatus}
+                remove={this.props.remove}
+            />
             : <EmptyToDo/>
           }
         </div>
@@ -34,7 +30,7 @@ export default class ToDoListWrap extends Components {
 }
 
 ToDoListWrap.propTypes = {
-  todoArr: PropTypes.array.isRequired,
+  todos: PropTypes.array.isRequired,
   changeStatus: PropTypes.func.isRequired,
   remove: PropTypes.func.isRequired
 };

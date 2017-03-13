@@ -9,24 +9,21 @@ export default class ToDoList extends Components {
     super(props);
   }
 
-  changeStatus(index, bool) {
-    this.props.changeStatus(index, bool);
-  }
-
-  remove(index) {
-    this.props.remove(index);
-  }
-
   render() {
     return (
       <ul className="todo-list">
         {
           this.props.todos.map(function(todo, index) {
-          return (<ToDoItem title={todo.title} key={todo.id} completed={todo.completed} status={function(bool) {
-            this.changeStatus(index, bool)
-          }.bind(this)} remove={function() {
-            this.remove(index)
-          }.bind(this)}/>);
+          return (
+            <ToDoItem
+              index={index}
+              title={todo.title}
+              key={todo.id}
+              completed={todo.completed}
+              status={this.props.changeStatus}
+              remove={this.props.remove}
+            />
+          );
         }.bind(this))
         }
       </ul>

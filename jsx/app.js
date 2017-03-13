@@ -1,11 +1,25 @@
 //Importing Libraries
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore, compose} from 'redux';
+import TodoReducer from './reducers/todo-reducer';
 
 // App Components
-import Application from './components/Application'
+import Application from './components/Application';
 
-var index = 2;
+let index = 2;
 
+const store = createStore(
+  TodoReducer,
+  compose(
+    window.devToolsExtension ? window.devToolsExtension() : f => f
+  )
+ );
 
-ReactDOM.render(<Application/>,document.getElementById('root'));
+render(
+  <Provider store={store}>
+    <Application />
+  </Provider>,
+  document.getElementById('root')
+);

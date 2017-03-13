@@ -35,5 +35,5 @@ export default class ToDoInput extends Components {
 }
 
 ToDoInput.propTypes = {
-  addTodo: PropTypes.func.isRequired
+  addTodo: PropTypes.func.isRequired,
 };
