@@ -1,5 +1,5 @@
 //Importing Libraries
-import React, {Components, PropTypes} from 'react';
+import React, {Components, PropTypes} from 'react'
 
 export default class Time extends Components {
   constructor(props) {
@@ -10,11 +10,11 @@ export default class Time extends Components {
   }
 
   componentDidMount() {
-    this.timer = setInterval(this.tick, 100);
+    this.timer = setInterval(this.tick, 100)
   }
 
   componentWillUnmount() {
-    clearInterval(this.timer);
+    clearInterval(this.timer)
   }
 
   tick() {

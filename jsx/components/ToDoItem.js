@@ -1,10 +1,10 @@
 //Importing Libraries
-import React, {Components, PropTypes} from 'react';
+import React, {Components, PropTypes} from 'react'
 
 export default class ToDoItem extends Components {
 
   constructor(props){
-    super(props);
+    super(props)
   }
 
 

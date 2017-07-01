@@ -1,12 +1,12 @@
 //Importing Libraries
-import React, {Components, PropTypes} from 'react';
+import React, {Components, PropTypes} from 'react'
 //Importing UI Components
-import EmptyToDo from './EmptyToDo';
-import ToDoList from './ToDoList';
+import EmptyToDo from './EmptyToDo'
+import ToDoList from './ToDoList'
 
 export default class ToDoListWrap extends Components {
   constructor(props) {
-    super(props);
+    super(props)
   }
 
   render() {

@@ -1,12 +1,12 @@
 //Importing Libraries
-import React, {Components, PropTypes} from 'react';
+import React, {Components, PropTypes} from 'react'
 //Importing UI Components
 import ToDoItem from './ToDoItem';
 
 export default class ToDoList extends Components {
 
   constructor(props) {
-    super(props);
+    super(props)
   }
 
   render() {

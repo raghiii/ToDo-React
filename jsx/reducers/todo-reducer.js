@@ -1,11 +1,11 @@
-import * as ToDoActionTypes from '../actiontypes/todo-actions.js';
+import * as ToDoActionTypes from '../actiontypes/todo-actions.js'
 
-const initalState = TODO;
+const initalState = TODO
 
 export default function TodoReducer(state = initalState, action) {
   switch (action.type) {
     case ToDoActionTypes.ADD_TODO:
-      index ++ ;
+      index ++ 
       return [
         ...state,
         {
