@@ -1,3 +1,4 @@
-"Icon\r"
+"Icon\r\r"
 .DS_Store
 node_modules
+package-lock.json
